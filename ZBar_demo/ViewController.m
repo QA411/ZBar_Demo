@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 50, 50);
+    btn.frame = CGRectMake(100, 100, 50, 50);
     [btn setTitle:@"扫描" forState:UIControlStateNormal];
     btn.backgroundColor = [UIColor redColor];
     [btn addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
