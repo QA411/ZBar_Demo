@@ -22,19 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(100, 100, 50, 50);
-    [btn setTitle:@"扫描" forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
     // Do any additional setup after loading the view, typically from a nib.
 }
-
-#pragma mark------扫描相册 二维码
--(void)rightBtnClick:(UIButton *)btn
-{
-    
+#pragma mark------扫描相册
+- (IBAction)rightBtn:(id)sender {
     imagePicker = [ZBarReaderController new];
     
     imagePicker.allowsEditing = NO   ;
@@ -46,8 +37,8 @@
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     [self presentViewController:imagePicker animated:YES completion:nil];
-    
 }
+
 #pragma mark - ZBarReaderController ReadDelegate
 //相册选取图片后的代理方法对应ZBarReaderController
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -61,9 +52,10 @@
         break;
     }
     
-    [imagePicker dismissViewControllerAnimated:YES completion:nil];
-    
-    
+    if (imagePicker) {
+         [imagePicker dismissViewControllerAnimated:YES completion:nil];
+    }
+   
     //二维码字符串
 //    NSString *QRCodeString =  symbol.data;
     //处理二维码图片信息
@@ -88,8 +80,7 @@
     }
     return;
 }
-
--(void)erweima:(UIButton *)btn{
+- (IBAction)leftBtn:(id)sender {
     ZBarReaderViewController * reader = [ZBarReaderViewController new];//初始化相机控制器
     reader.readerDelegate = self;
     reader.supportedOrientationsMask = ZBarOrientationMaskAll;//基本适配
@@ -102,19 +93,8 @@
     [self presentViewController:reader animated:YES completion:^{
         
     }];
-    
+
 }
-//- (void) imagePickerController: (UIImagePickerController*) reader
-// didFinishPickingMediaWithInfo: (NSDictionary*) info{
-//    id<NSFastEnumeration> results =
-//    [info objectForKey: ZBarReaderControllerResults];
-//    ZBarSymbol *symbol = nil;
-//    for(symbol in results)
-//        break;
-//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"消息" message:symbol.data delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:@"OK1", nil];
-//    [alert show];
-//    
-//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
